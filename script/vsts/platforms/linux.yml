@@ -3,15 +3,11 @@ jobs:
   dependsOn: GetReleaseVersion
   timeoutInMinutes: 180
 
-  resources:
-    containers:
-    - container: ubuntu_container
-      image: ubuntu:16.04
-
   variables:
     ReleaseVersion: $[ dependencies.GetReleaseVersion.outputs['Version.ReleaseVersion'] ]
   pool:
     vmImage: ubuntu-16.04
+
   container: ubuntu_container
 
   steps:
