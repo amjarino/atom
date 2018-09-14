@@ -20,9 +20,9 @@ jobs:
     displayName: Update npm
 
   - script: |
-      apt-get update
-      apt-get upgrade -y
-      apt-get install -y --no-install-recommends build-essential xvfb clang-3.5 fakeroot git libsecret-1-dev rpm libx11-dev libxkbfile-dev xz-utils xorriso zsync libxss1 libgconf2-4 libgtk-3-0
+      su -c "apt-get update"
+      su -c "apt-get upgrade -y"
+      su -c "apt-get install -y --no-install-recommends build-essential xvfb clang-3.5 fakeroot git libsecret-1-dev rpm libx11-dev libxkbfile-dev xz-utils xorriso zsync libxss1 libgconf2-4 libgtk-3-0"
     displayName: Install apt dependencies
 
   - script: |
@@ -35,7 +35,7 @@ jobs:
     displayName: Run linter
 
   - script: |
-      /sbin/start-stop-daemon --start --quiet --pidfile /tmp/custom_xvfb_99.pid --make-pidfile --background --exec /usr/bin/Xvfb -- :99 -ac -screen 0 1280x1024x16
+      su -c "/sbin/start-stop-daemon --start --quiet --pidfile /tmp/custom_xvfb_99.pid --make-pidfile --background --exec /usr/bin/Xvfb -- :99 -ac -screen 0 1280x1024x16"
       export DISPLAY=':99.0'
       Xvfb :99 -screen 0 1024x768x24 > /dev/null 2>&1 &
       script/test
